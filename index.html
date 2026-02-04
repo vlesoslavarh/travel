@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счётчик до поездки на море в Джугбу</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .date {
+            font-size: 1.5rem;
+            color: #a3e4f9;
+            margin-bottom: 20px;
+        }
+        
+        .beach-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .counter-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .counter-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .counter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .time-unit {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            line-height: 1;
+        }
+        
+        .label {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: #a3e4f9;
+        }
+        
+        .participants-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .add-participant {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+        
+        .add-participant input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .add-btn {
+            background-color: #FFD700;
+            color: #1a2980;
+            border: none;
+            border-radius: 10px;
+            padding: 0 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .add-btn:hover {
+            background-color: #ffed4e;
+            transform: translateY(-3px);
+        }
+        
+        .participants-list {
+            list-style-type: none;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .participants-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .participants-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .participants-list::-webkit-scrollbar-thumb {
+            background: #FFD700;
+            border-radius: 10px;
+        }
+        
+        .participant-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 5px solid #FFD700;
+        }
+        
+        .participant-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .participant-name {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .delete-btn {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff9999;
+            border: none;
+            border-radius: 5px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(255, 0, 0, 0.4);
+            color: white;
+        }
+        
+        .empty-list {
+            text-align: center;
+            padding: 30px;
+            color: #a3e4f9;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: #a3e4f9;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .time-unit {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .number {
+                font-size: 2.5rem;
+            }
+        }
+        
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .motivation {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #a3e4f9;
+            font-style: italic;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFD700;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-umbrella-beach"></i> Счётчик до поездки на море</h1>
+            <div class="date">15 августа 2026 года • Пляж Джугбы</div>
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Пляж Джугбы" class="beach-image">
+        </header>
+        
+        <div class="main-content">
+            <div class="counter-section">
+                <h2 class="counter-title"><i class="far fa-clock"></i> До поездки осталось:</h2>
+                <div class="counter">
+                    <div class="time-unit">
+                        <div class="number" id="days">0</div>
+                        <div class="label">дней</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="hours">0</div>
+                        <div class="label">часов</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="minutes">0</div>
+                        <div class="label">минут</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="seconds">0</div>
+                        <div class="label">секунд</div>
+                    </div>
+                </div>
+                <div class="motivation" id="motivation-text">Скоро море, солнце и отличный отдых!</div>
+            </div>
+            
+            <div class="participants-section">
+                <h2 class="section-title"><i class="fas fa-users"></i> Участники поездки</h2>
+                
+                <div class="add-participant">
+                    <input type="text" id="participant-input" placeholder="Введите имя участника...">
+                    <button class="add-btn" id="add-btn">
+                        <i class="fas fa-plus"></i> Добавить
+                    </button>
+                </div>
+                
+                <div id="participants-container">
+                    <ul class="participants-list" id="participants-list">
+                        <!-- Участники будут добавляться здесь -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Поездка на море в Джугбу состоится <span class="highlight">15 августа 2026 года</span>. Не забудьте взять с собой хорошее настроение!</p>
+            <p>Всего участников: <span class="highlight" id="total-count">0</span></p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Уведомление</span>
+    </div>
+
+    <script>
+        // Целевая дата поездки - 15 августа 2026 года
+        const targetDate = new Date('August 15, 2026 00:00:00').getTime();
+        
+        // Обновление счётчика каждую секунду
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            // Если время вышло
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.getElementById('days').innerHTML = "0";
+                document.getElementById('hours').innerHTML = "0";
+                document.getElementById('minutes').innerHTML = "0";
+                document.getElementById('seconds').innerHTML = "0";
+                document.getElementById('motivation-text').innerHTML = "Ура! Мы на море!";
+                return;
+            }
+            
+            // Расчет дней, часов, минут и секунд
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Отображение результатов
+            document.getElementById('days').innerHTML = days;
+            document.getElementById('hours').innerHTML = hours;
+            document.getElementById('minutes').innerHTML = minutes;
+            document.getElementById('seconds').innerHTML = seconds;
+            
+            // Обновляем мотивационное сообщение в зависимости от оставшегося времени
+            updateMotivationText(days);
+        }, 1000);
+        
+        // Функция для обновления мотивационного сообщения
+        function updateMotivationText(daysLeft) {
+            const motivationText = document.getElementById('motivation-text');
+            
+            if (daysLeft > 180) {
+                motivationText.innerHTML = "Ещё есть время подготовиться к поездке!";
+            } else if (daysLeft > 90) {
+                motivationText.innerHTML = "Скоро лето и море! Уже можно планировать отдых!";
+            } else if (daysLeft > 60) {
+                motivationText.innerHTML = "Осталось всего пару месяцев! Уже скоро!";
+            } else if (daysLeft > 30) {
+                motivationText.innerHTML = "Уже через месяц мы будем на море!";
+            } else if (daysLeft > 14) {
+                motivationText.innerHTML = "Осталось всего две недели! Ура!";
+            } else if (daysLeft > 7) {
+                motivationText.innerHTML = "Уже на следующей неделе! Готовим чемоданы!";
+            } else if (daysLeft > 3) {
+                motivationText.innerHTML = "Совсем скоро! Последние приготовления!";
+            } else if (daysLeft > 1) {
+                motivationText.innerHTML = "Завтра уже едем! Не забудьте документы!";
+            } else if (daysLeft === 1) {
+                motivationText.innerHTML = "Завтра уже едем! Не забудьте документы!";
+            } else if (daysLeft === 0) {
+                motivationText.innerHTML = "Сегодня день поездки! Ура!";
+            }
+        }
+        
+        // Управление списком участников
+        document.addEventListener('DOMContentLoaded', function() {
+            const participantInput = document.getElementById('participant-input');
+            const addButton = document.getElementById('add-btn');
+            const participantsList = document.getElementById('participants-list');
+            const totalCountElement = document.getElementById('total-count');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            // Загружаем участников из localStorage
+            let participants = JSON.parse(localStorage.getItem('seaTripParticipants')) || [];
+            
+            // Отображаем сохранённых участников
+            renderParticipantsList();
+            
+            // Функция для показа уведомлений
+            function showNotification(message) {
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            }
+            
+            // Функция для отображения списка участников
+            function renderParticipantsList() {
+                participantsList.innerHTML = '';
+                
+                if (participants.length === 0) {
+                    participantsList.innerHTML = '<li class="empty-list">Пока нет участников. Добавьте первого!</li>';
+                } else {
+                    participants.forEach(function(participant, index) {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'participant-item';
+                        listItem.innerHTML = `
+                            <div class="participant-name">
+                                <i class="fas fa-user"></i>
+                                ${participant}
+                            </div>
+                            <button class="delete-btn" data-index="${index}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        participantsList.appendChild(listItem);
+                    });
+                }
+                
+                // Обновляем общее количество участников
+                totalCountElement.textContent = participants.length;
+                
+                // Добавляем обработчики для кнопок удаления
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeParticipant(index);
+                    });
+                });
+            }
+            
+            // Функция добавления участника
+            function addParticipant() {
+                const name = participantInput.value.trim();
+                
+                if (name === '') {
+                    showNotification('Пожалуйста, введите имя участника');
+                    return;
+                }
+                
+                if (participants.includes(name)) {
+                    showNotification('Этот участник уже в списке!');
+                    return;
+                }
+                
+                participants.push(name);
+                saveParticipants();
+                
+                participantInput.value = '';
+                renderParticipantsList();
+                showNotification(`Участник "${name}" добавлен!`);
+            }
+            
+            // Функция удаления участника
+            function removeParticipant(index) {
+                const removedName = participants[index];
+                participants.splice(index, 1);
+                saveParticipants();
+                renderParticipantsList();
+                showNotification(`Участник "${removedName}" удалён`);
+            }
+            
+            // Функция сохранения участников
+            function saveParticipants() {
+                localStorage.setItem('seaTripParticipants', JSON.stringify(participants));
+            }
+            
+            // Обработчики событий
+            addButton.addEventListener('click', addParticipant);
+            
+            participantInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addParticipant();
+                }
+            });
+            
+            // Автосохранение при закрытии страницы
+            window.addEventListener('beforeunload', saveParticipants);
+        });
+    </script>
+</body>
+</html>

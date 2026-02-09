@@ -21,7 +21,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -34,6 +34,29 @@
             border-radius: 15px;
             backdrop-filter: blur(5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .dolphin-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #FFD700;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .header-text {
+            flex: 1;
+            min-width: 300px;
         }
         
         h1 {
@@ -51,24 +74,22 @@
         
         .beach-image {
             width: 100%;
-            max-height: 400px;
+            max-height: 350px;
             object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
+            margin-top: 20px;
             border: 5px solid rgba(255, 255, 255, 0.1);
         }
         
         .main-content {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-bottom: 30px;
         }
         
         .counter-section {
-            flex: 1;
-            min-width: 300px;
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             padding: 30px;
@@ -90,6 +111,7 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
         
         .time-unit {
@@ -114,9 +136,18 @@
             color: #a3e4f9;
         }
         
-        .participants-section {
-            flex: 1;
-            min-width: 300px;
+        .motivation {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #a3e4f9;
+            font-style: italic;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .section {
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             padding: 30px;
@@ -133,13 +164,13 @@
             gap: 10px;
         }
         
-        .add-participant {
+        .add-form {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             gap: 10px;
         }
         
-        .add-participant input {
+        .add-form input {
             flex: 1;
             padding: 15px;
             border: none;
@@ -170,28 +201,31 @@
             transform: translateY(-3px);
         }
         
-        .participants-list {
+        .items-list, .participants-list {
             list-style-type: none;
             max-height: 300px;
             overflow-y: auto;
             padding-right: 10px;
         }
         
+        .items-list::-webkit-scrollbar,
         .participants-list::-webkit-scrollbar {
             width: 8px;
         }
         
+        .items-list::-webkit-scrollbar-track,
         .participants-list::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
         
+        .items-list::-webkit-scrollbar-thumb,
         .participants-list::-webkit-scrollbar-thumb {
             background: #FFD700;
             border-radius: 10px;
         }
         
-        .participant-item {
+        .item, .participant-item {
             background-color: rgba(255, 255, 255, 0.1);
             margin-bottom: 15px;
             padding: 18px 20px;
@@ -203,21 +237,63 @@
             border-left: 5px solid #FFD700;
         }
         
-        .participant-item:hover {
+        .item:hover, .participant-item:hover {
             background-color: rgba(255, 255, 255, 0.15);
             transform: translateX(5px);
         }
         
-        .participant-name {
+        .item-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .item-checkbox {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .item-name {
             font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .item-name.editable {
+            border: 1px dashed #a3e4f9;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .edit-input {
+            font-size: 1.2rem;
+            background: transparent;
+            border: none;
+            color: white;
+            border-bottom: 2px solid #FFD700;
+            padding: 5px;
+            width: 100%;
+        }
+        
+        .edit-input:focus {
+            outline: none;
+            border-bottom: 2px solid #ffed4e;
+        }
+        
+        .item-actions, .participant-name {
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .delete-btn {
-            background-color: rgba(255, 0, 0, 0.2);
-            color: #ff9999;
+        .edit-btn, .delete-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #a3e4f9;
             border: none;
             border-radius: 5px;
             width: 35px;
@@ -227,6 +303,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        .edit-btn:hover {
+            background-color: rgba(0, 123, 255, 0.3);
+            color: white;
+        }
+        
+        .delete-btn {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff9999;
         }
         
         .delete-btn:hover {
@@ -242,6 +328,24 @@
             font-size: 1.2rem;
         }
         
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+        
+        .checked-count {
+            color: #a3f9a3;
+        }
+        
+        .total-count {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
         footer {
             text-align: center;
             padding: 20px;
@@ -254,11 +358,16 @@
         
         @media (max-width: 768px) {
             .main-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
             
             h1 {
                 font-size: 2.2rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
             }
             
             .time-unit {
@@ -274,14 +383,6 @@
         .highlight {
             color: #FFD700;
             font-weight: bold;
-        }
-        
-        .motivation {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.2rem;
-            color: #a3e4f9;
-            font-style: italic;
         }
         
         .notification {
@@ -306,13 +407,25 @@
             opacity: 1;
             transform: translateX(0);
         }
+        
+        .item.checked .item-name {
+            text-decoration: line-through;
+            opacity: 0.7;
+            color: #a3f9a3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-umbrella-beach"></i> Счётчик до поездки на море</h1>
-            <div class="date">15 августа 2026 года • Пляж Джугбы</div>
+            <div class="header-content">
+                <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Весёлый дельфин" class="dolphin-image">
+                <div class="header-text">
+                    <h1><i class="fas fa-umbrella-beach"></i> Счётчик до поездки на море</h1>
+                    <div class="date">8 августа 2026 года • Пляж Джугбы</div>
+                    <p>Солнце, море и отличный отдых ждут нас!</p>
+                </div>
+            </div>
             <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Пляж Джугбы" class="beach-image">
         </header>
         
@@ -340,12 +453,34 @@
                 <div class="motivation" id="motivation-text">Скоро море, солнце и отличный отдых!</div>
             </div>
             
-            <div class="participants-section">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-suitcase"></i> Вещи для поездки</h2>
+                
+                <div class="add-form">
+                    <input type="text" id="item-input" placeholder="Добавить вещь в список...">
+                    <button class="add-btn" id="add-item-btn">
+                        <i class="fas fa-plus"></i> Добавить
+                    </button>
+                </div>
+                
+                <div class="stats">
+                    <div>Собрано: <span class="checked-count" id="checked-count">0</span></div>
+                    <div>Всего: <span class="total-count" id="items-total-count">0</span></div>
+                </div>
+                
+                <div id="items-container">
+                    <ul class="items-list" id="items-list">
+                        <!-- Вещи будут добавляться здесь -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
                 <h2 class="section-title"><i class="fas fa-users"></i> Участники поездки</h2>
                 
-                <div class="add-participant">
+                <div class="add-form">
                     <input type="text" id="participant-input" placeholder="Введите имя участника...">
-                    <button class="add-btn" id="add-btn">
+                    <button class="add-btn" id="add-participant-btn">
                         <i class="fas fa-plus"></i> Добавить
                     </button>
                 </div>
@@ -355,12 +490,15 @@
                         <!-- Участники будут добавляться здесь -->
                     </ul>
                 </div>
+                <div class="stats">
+                    <div>Всего участников: <span class="total-count" id="participants-total-count">0</span></div>
+                </div>
             </div>
         </div>
         
         <footer>
-            <p>Поездка на море в Джугбу состоится <span class="highlight">15 августа 2026 года</span>. Не забудьте взять с собой хорошее настроение!</p>
-            <p>Всего участников: <span class="highlight" id="total-count">0</span></p>
+            <p>Поездка на море в Джугбу состоится <span class="highlight">8 августа 2026 года</span>. Не забудьте взять с собой хорошее настроение!</p>
+            <p>Осталось собрать <span class="highlight" id="items-left-count">0</span> вещей из <span class="highlight" id="total-items-count">0</span></p>
         </footer>
     </div>
     
@@ -370,8 +508,8 @@
     </div>
 
     <script>
-        // Целевая дата поездки - 15 августа 2026 года
-        const targetDate = new Date('August 15, 2026 00:00:00').getTime();
+        // Целевая дата поездки - 8 августа 2026 года
+        const targetDate = new Date('August 8, 2026 00:00:00').getTime();
         
         // Обновление счётчика каждую секунду
         const countdown = setInterval(function() {
@@ -432,20 +570,35 @@
             }
         }
         
-        // Управление списком участников
+        // Управление списком вещей и участников
         document.addEventListener('DOMContentLoaded', function() {
+            // Элементы для списка вещей
+            const itemInput = document.getElementById('item-input');
+            const addItemButton = document.getElementById('add-item-btn');
+            const itemsList = document.getElementById('items-list');
+            const checkedCountElement = document.getElementById('checked-count');
+            const itemsTotalCountElement = document.getElementById('items-total-count');
+            const itemsLeftCountElement = document.getElementById('items-left-count');
+            const totalItemsCountElement = document.getElementById('total-items-count');
+            
+            // Элементы для списка участников
             const participantInput = document.getElementById('participant-input');
-            const addButton = document.getElementById('add-btn');
+            const addParticipantButton = document.getElementById('add-participant-btn');
             const participantsList = document.getElementById('participants-list');
-            const totalCountElement = document.getElementById('total-count');
+            const participantsTotalCountElement = document.getElementById('participants-total-count');
+            
+            // Уведомления
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notification-text');
             
-            // Загружаем участников из localStorage
+            // Загружаем данные из localStorage
+            let items = JSON.parse(localStorage.getItem('seaTripItems')) || [];
             let participants = JSON.parse(localStorage.getItem('seaTripParticipants')) || [];
             
-            // Отображаем сохранённых участников
+            // Отображаем сохранённые данные
+            renderItemsList();
             renderParticipantsList();
+            updateItemsStats();
             
             // Функция для показа уведомлений
             function showNotification(message) {
@@ -456,6 +609,204 @@
                     notification.classList.remove('show');
                 }, 2000);
             }
+            
+            // ===== ФУНКЦИИ ДЛЯ СПИСКА ВЕЩЕЙ =====
+            
+            // Функция для отображения списка вещей
+            function renderItemsList() {
+                itemsList.innerHTML = '';
+                
+                if (items.length === 0) {
+                    itemsList.innerHTML = '<li class="empty-list">Список вещей пуст. Добавьте первую вещь!</li>';
+                } else {
+                    items.forEach(function(item, index) {
+                        const listItem = document.createElement('li');
+                        listItem.className = `item ${item.checked ? 'checked' : ''}`;
+                        listItem.innerHTML = `
+                            <div class="item-content">
+                                <input type="checkbox" class="item-checkbox" data-index="${index}" ${item.checked ? 'checked' : ''}>
+                                <div class="item-name" id="item-name-${index}">
+                                    <i class="fas ${getItemIcon(item.name)}"></i>
+                                    ${item.name}
+                                </div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="edit-btn" data-index="${index}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-btn" data-index="${index}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `;
+                        itemsList.appendChild(listItem);
+                    });
+                }
+                
+                // Обновляем статистику
+                updateItemsStats();
+                
+                // Добавляем обработчики для чекбоксов
+                document.querySelectorAll('.item-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        toggleItemChecked(index);
+                    });
+                });
+                
+                // Добавляем обработчики для кнопок редактирования
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        editItem(index);
+                    });
+                });
+                
+                // Добавляем обработчики для кнопок удаления
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeItem(index);
+                    });
+                });
+            }
+            
+            // Функция для получения иконки для вещи
+            function getItemIcon(itemName) {
+                const name = itemName.toLowerCase();
+                if (name.includes('купальник') || name.includes('плавки')) return 'fa-swimming-pool';
+                if (name.includes('полотенце')) return 'fa-tshirt';
+                if (name.includes('крем') || name.includes('солнце')) return 'fa-sun';
+                if (name.includes('очки')) return 'fa-glasses';
+                if (name.includes('шляпа') || name.includes('панама')) return 'fa-hat-cowboy';
+                if (name.includes('документ')) return 'fa-passport';
+                if (name.includes('деньги') || name.includes('карта')) return 'fa-money-bill';
+                if (name.includes('аптечка')) return 'fa-first-aid';
+                if (name.includes('телефон')) return 'fa-mobile-alt';
+                if (name.includes('заряд')) return 'fa-charging-station';
+                if (name.includes('книга')) return 'fa-book';
+                if (name.includes('еда') || name.includes('вода')) return 'fa-utensils';
+                return 'fa-suitcase';
+            }
+            
+            // Функция добавления вещи
+            function addItem() {
+                const name = itemInput.value.trim();
+                
+                if (name === '') {
+                    showNotification('Пожалуйста, введите название вещи');
+                    return;
+                }
+                
+                // Проверяем, нет ли уже такой вещи
+                const existingItem = items.find(item => item.name.toLowerCase() === name.toLowerCase());
+                if (existingItem) {
+                    showNotification('Эта вещь уже есть в списке!');
+                    return;
+                }
+                
+                items.push({
+                    name: name,
+                    checked: false
+                });
+                
+                saveItems();
+                itemInput.value = '';
+                renderItemsList();
+                showNotification(`Вещь "${name}" добавлена!`);
+            }
+            
+            // Функция переключения состояния чекбокса
+            function toggleItemChecked(index) {
+                items[index].checked = !items[index].checked;
+                saveItems();
+                renderItemsList();
+                updateItemsStats();
+                
+                const itemName = items[index].name;
+                const action = items[index].checked ? 'отмечена как собранная' : 'отмечена как несобранная';
+                showNotification(`Вещь "${itemName}" ${action}`);
+            }
+            
+            // Функция редактирования вещи
+            function editItem(index) {
+                const itemNameElement = document.getElementById(`item-name-${index}`);
+                const currentName = items[index].name;
+                
+                // Создаем поле ввода для редактирования
+                itemNameElement.innerHTML = `
+                    <input type="text" class="edit-input" value="${currentName}" id="edit-input-${index}">
+                `;
+                
+                const editInput = document.getElementById(`edit-input-${index}`);
+                editInput.focus();
+                
+                // Обработчик для сохранения при потере фокуса или нажатии Enter
+                const saveEdit = function() {
+                    const newName = editInput.value.trim();
+                    
+                    if (newName === '') {
+                        showNotification('Название не может быть пустым');
+                        renderItemsList();
+                        return;
+                    }
+                    
+                    // Проверяем, нет ли уже такой вещи (кроме текущей)
+                    const existingItem = items.find((item, i) => 
+                        i !== index && item.name.toLowerCase() === newName.toLowerCase()
+                    );
+                    
+                    if (existingItem) {
+                        showNotification('Эта вещь уже есть в списке!');
+                        renderItemsList();
+                        return;
+                    }
+                    
+                    items[index].name = newName;
+                    saveItems();
+                    renderItemsList();
+                    showNotification(`Вещь переименована в "${newName}"`);
+                };
+                
+                editInput.addEventListener('blur', saveEdit);
+                editInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        saveEdit();
+                    }
+                });
+            }
+            
+            // Функция удаления вещи
+            function removeItem(index) {
+                const removedName = items[index].name;
+                items.splice(index, 1);
+                saveItems();
+                renderItemsList();
+                showNotification(`Вещь "${removedName}" удалена`);
+            }
+            
+            // Функция обновления статистики вещей
+            function updateItemsStats() {
+                const total = items.length;
+                const checked = items.filter(item => item.checked).length;
+                const left = total - checked;
+                
+                checkedCountElement.textContent = checked;
+                itemsTotalCountElement.textContent = total;
+                itemsLeftCountElement.textContent = left;
+                totalItemsCountElement.textContent = total;
+                
+                // Обновляем футер
+                document.getElementById('items-left-count').textContent = left;
+                document.getElementById('total-items-count').textContent = total;
+            }
+            
+            // Функция сохранения вещей
+            function saveItems() {
+                localStorage.setItem('seaTripItems', JSON.stringify(items));
+            }
+            
+            // ===== ФУНКЦИИ ДЛЯ СПИСКА УЧАСТНИКОВ =====
             
             // Функция для отображения списка участников
             function renderParticipantsList() {
@@ -468,23 +819,27 @@
                         const listItem = document.createElement('li');
                         listItem.className = 'participant-item';
                         listItem.innerHTML = `
-                            <div class="participant-name">
-                                <i class="fas fa-user"></i>
-                                ${participant}
+                            <div class="item-content">
+                                <div class="item-name">
+                                    <i class="fas fa-user"></i>
+                                    ${participant}
+                                </div>
                             </div>
-                            <button class="delete-btn" data-index="${index}">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            <div class="item-actions">
+                                <button class="delete-btn" data-index="${index}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         `;
                         participantsList.appendChild(listItem);
                     });
                 }
                 
                 // Обновляем общее количество участников
-                totalCountElement.textContent = participants.length;
+                participantsTotalCountElement.textContent = participants.length;
                 
                 // Добавляем обработчики для кнопок удаления
-                document.querySelectorAll('.delete-btn').forEach(button => {
+                document.querySelectorAll('.participant-item .delete-btn').forEach(button => {
                     button.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
                         removeParticipant(index);
@@ -528,9 +883,18 @@
                 localStorage.setItem('seaTripParticipants', JSON.stringify(participants));
             }
             
-            // Обработчики событий
-            addButton.addEventListener('click', addParticipant);
+            // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
             
+            // Для списка вещей
+            addItemButton.addEventListener('click', addItem);
+            itemInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addItem();
+                }
+            });
+            
+            // Для списка участников
+            addParticipantButton.addEventListener('click', addParticipant);
             participantInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     addParticipant();
@@ -538,7 +902,36 @@
             });
             
             // Автосохранение при закрытии страницы
-            window.addEventListener('beforeunload', saveParticipants);
+            window.addEventListener('beforeunload', function() {
+                saveItems();
+                saveParticipants();
+            });
+            
+            // Добавляем несколько вещей по умолчанию, если список пуст
+            if (items.length === 0) {
+                const defaultItems = [
+                    "Купальник/плавки",
+                    "Пляжное полотенце",
+                    "Солнцезащитный крем",
+                    "Солнечные очки",
+                    "Панама/шляпа",
+                    "Документы",
+                    "Деньги/карта",
+                    "Аптечка",
+                    "Телефон",
+                    "Зарядное устройство"
+                ];
+                
+                defaultItems.forEach(itemName => {
+                    items.push({
+                        name: itemName,
+                        checked: false
+                    });
+                });
+                
+                saveItems();
+                renderItemsList();
+            }
         });
     </script>
 </body>

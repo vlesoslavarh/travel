@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счётчик до поездки на море в Джугбу</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .dolphin-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #FFD700;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .date {
+            font-size: 1.5rem;
+            color: #a3e4f9;
+            margin-bottom: 20px;
+        }
+        
+        .beach-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .counter-section {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .counter-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .counter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .time-unit {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            line-height: 1;
+        }
+        
+        .label {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: #a3e4f9;
+        }
+        
+        .motivation {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #a3e4f9;
+            font-style: italic;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .section {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .add-form {
+            display: flex;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+        
+        .add-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .add-btn {
+            background-color: #FFD700;
+            color: #1a2980;
+            border: none;
+            border-radius: 10px;
+            padding: 0 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .add-btn:hover {
+            background-color: #ffed4e;
+            transform: translateY(-3px);
+        }
+        
+        .items-list, .participants-list {
+            list-style-type: none;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .items-list::-webkit-scrollbar,
+        .participants-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .items-list::-webkit-scrollbar-track,
+        .participants-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .items-list::-webkit-scrollbar-thumb,
+        .participants-list::-webkit-scrollbar-thumb {
+            background: #FFD700;
+            border-radius: 10px;
+        }
+        
+        .item, .participant-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 5px solid #FFD700;
+        }
+        
+        .item:hover, .participant-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .item-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .item-checkbox {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .item-name {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .item-name.editable {
+            border: 1px dashed #a3e4f9;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .edit-input {
+            font-size: 1.2rem;
+            background: transparent;
+            border: none;
+            color: white;
+            border-bottom: 2px solid #FFD700;
+            padding: 5px;
+            width: 100%;
+        }
+        
+        .edit-input:focus {
+            outline: none;
+            border-bottom: 2px solid #ffed4e;
+        }
+        
+        .item-actions, .participant-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .edit-btn, .delete-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #a3e4f9;
+            border: none;
+            border-radius: 5px;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .edit-btn:hover {
+            background-color: rgba(0, 123, 255, 0.3);
+            color: white;
+        }
+        
+        .delete-btn {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff9999;
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(255, 0, 0, 0.4);
+            color: white;
+        }
+        
+        .empty-list {
+            text-align: center;
+            padding: 30px;
+            color: #a3e4f9;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+        
+        .checked-count {
+            color: #a3f9a3;
+        }
+        
+        .total-count {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: #a3e4f9;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .time-unit {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .number {
+                font-size: 2.5rem;
+            }
+        }
+        
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFD700;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .item.checked .item-name {
+            text-decoration: line-through;
+            opacity: 0.7;
+            color: #a3f9a3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Весёлый дельфин" class="dolphin-image">
+                <div class="header-text">
+                    <h1><i class="fas fa-umbrella-beach"></i> Счётчик до поездки на море</h1>
+                    <div class="date">8 августа 2026 года • Пляж Джугбы</div>
+                    <p>Солнце, море и отличный отдых ждут нас!</p>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Пляж Джугбы" class="beach-image">
+        </header>
+        
+        <div class="main-content">
+            <div class="counter-section">
+                <h2 class="counter-title"><i class="far fa-clock"></i> До поездки осталось:</h2>
+                <div class="counter">
+                    <div class="time-unit">
+                        <div class="number" id="days">0</div>
+                        <div class="label">дней</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="hours">0</div>
+                        <div class="label">часов</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="minutes">0</div>
+                        <div class="label">минут</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="number" id="seconds">0</div>
+                        <div class="label">секунд</div>
+                    </div>
+                </div>
+                <div class="motivation" id="motivation-text">Скоро море, солнце и отличный отдых!</div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-suitcase"></i> Вещи для поездки</h2>
+                
+                <div class="add-form">
+                    <input type="text" id="item-input" placeholder="Добавить вещь в список...">
+                    <button class="add-btn" id="add-item-btn">
+                        <i class="fas fa-plus"></i> Добавить
+                    </button>
+                </div>
+                
+                <div class="stats">
+                    <div>Собрано: <span class="checked-count" id="checked-count">0</span></div>
+                    <div>Всего: <span class="total-count" id="items-total-count">0</span></div>
+                </div>
+                
+                <div id="items-container">
+                    <ul class="items-list" id="items-list">
+                        <!-- Вещи будут добавляться здесь -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-users"></i> Участники поездки</h2>
+                
+                <div class="add-form">
+                    <input type="text" id="participant-input" placeholder="Введите имя участника...">
+                    <button class="add-btn" id="add-participant-btn">
+                        <i class="fas fa-plus"></i> Добавить
+                    </button>
+                </div>
+                
+                <div id="participants-container">
+                    <ul class="participants-list" id="participants-list">
+                        <!-- Участники будут добавляться здесь -->
+                    </ul>
+                </div>
+                <div class="stats">
+                    <div>Всего участников: <span class="total-count" id="participants-total-count">0</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Поездка на море в Джугбу состоится <span class="highlight">8 августа 2026 года</span>. Не забудьте взять с собой хорошее настроение!</p>
+            <p>Осталось собрать <span class="highlight" id="items-left-count">0</span> вещей из <span class="highlight" id="total-items-count">0</span></p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Уведомление</span>
+    </div>
+
+    <script>
+        // Целевая дата поездки - 8 августа 2026 года
+        const targetDate = new Date('August 8, 2026 00:00:00').getTime();
+        
+        // Обновление счётчика каждую секунду
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            // Если время вышло
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.getElementById('days').innerHTML = "0";
+                document.getElementById('hours').innerHTML = "0";
+                document.getElementById('minutes').innerHTML = "0";
+                document.getElementById('seconds').innerHTML = "0";
+                document.getElementById('motivation-text').innerHTML = "Ура! Мы на море!";
+                return;
+            }
+            
+            // Расчет дней, часов, минут и секунд
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Отображение результатов
+            document.getElementById('days').innerHTML = days;
+            document.getElementById('hours').innerHTML = hours;
+            document.getElementById('minutes').innerHTML = minutes;
+            document.getElementById('seconds').innerHTML = seconds;
+            
+            // Обновляем мотивационное сообщение в зависимости от оставшегося времени
+            updateMotivationText(days);
+        }, 1000);
+        
+        // Функция для обновления мотивационного сообщения
+        function updateMotivationText(daysLeft) {
+            const motivationText = document.getElementById('motivation-text');
+            
+            if (daysLeft > 180) {
+                motivationText.innerHTML = "Ещё есть время подготовиться к поездке!";
+            } else if (daysLeft > 90) {
+                motivationText.innerHTML = "Скоро лето и море! Уже можно планировать отдых!";
+            } else if (daysLeft > 60) {
+                motivationText.innerHTML = "Осталось всего пару месяцев! Уже скоро!";
+            } else if (daysLeft > 30) {
+                motivationText.innerHTML = "Уже через месяц мы будем на море!";
+            } else if (daysLeft > 14) {
+                motivationText.innerHTML = "Осталось всего две недели! Ура!";
+            } else if (daysLeft > 7) {
+                motivationText.innerHTML = "Уже на следующей неделе! Готовим чемоданы!";
+            } else if (daysLeft > 3) {
+                motivationText.innerHTML = "Совсем скоро! Последние приготовления!";
+            } else if (daysLeft > 1) {
+                motivationText.innerHTML = "Завтра уже едем! Не забудьте документы!";
+            } else if (daysLeft === 1) {
+                motivationText.innerHTML = "Завтра уже едем! Не забудьте документы!";
+            } else if (daysLeft === 0) {
+                motivationText.innerHTML = "Сегодня день поездки! Ура!";
+            }
+        }
+        
+        // Управление списком вещей и участников
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы для списка вещей
+            const itemInput = document.getElementById('item-input');
+            const addItemButton = document.getElementById('add-item-btn');
+            const itemsList = document.getElementById('items-list');
+            const checkedCountElement = document.getElementById('checked-count');
+            const itemsTotalCountElement = document.getElementById('items-total-count');
+            const itemsLeftCountElement = document.getElementById('items-left-count');
+            const totalItemsCountElement = document.getElementById('total-items-count');
+            
+            // Элементы для списка участников
+            const participantInput = document.getElementById('participant-input');
+            const addParticipantButton = document.getElementById('add-participant-btn');
+            const participantsList = document.getElementById('participants-list');
+            const participantsTotalCountElement = document.getElementById('participants-total-count');
+            
+            // Уведомления
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            // Загружаем данные из localStorage
+            let items = JSON.parse(localStorage.getItem('seaTripItems')) || [];
+            let participants = JSON.parse(localStorage.getItem('seaTripParticipants')) || [];
+            
+            // Отображаем сохранённые данные
+            renderItemsList();
+            renderParticipantsList();
+            updateItemsStats();
+            
+            // Функция для показа уведомлений
+            function showNotification(message) {
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            }
+            
+            // ===== ФУНКЦИИ ДЛЯ СПИСКА ВЕЩЕЙ =====
+            
+            // Функция для отображения списка вещей
+            function renderItemsList() {
+                itemsList.innerHTML = '';
+                
+                if (items.length === 0) {
+                    itemsList.innerHTML = '<li class="empty-list">Список вещей пуст. Добавьте первую вещь!</li>';
+                } else {
+                    items.forEach(function(item, index) {
+                        const listItem = document.createElement('li');
+                        listItem.className = `item ${item.checked ? 'checked' : ''}`;
+                        listItem.innerHTML = `
+                            <div class="item-content">
+                                <input type="checkbox" class="item-checkbox" data-index="${index}" ${item.checked ? 'checked' : ''}>
+                                <div class="item-name" id="item-name-${index}">
+                                    <i class="fas ${getItemIcon(item.name)}"></i>
+                                    ${item.name}
+                                </div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="edit-btn" data-index="${index}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-btn" data-index="${index}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `;
+                        itemsList.appendChild(listItem);
+                    });
+                }
+                
+                // Обновляем статистику
+                updateItemsStats();
+                
+                // Добавляем обработчики для чекбоксов
+                document.querySelectorAll('.item-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        toggleItemChecked(index);
+                    });
+                });
+                
+                // Добавляем обработчики для кнопок редактирования
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        editItem(index);
+                    });
+                });
+                
+                // Добавляем обработчики для кнопок удаления
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeItem(index);
+                    });
+                });
+            }
+            
+            // Функция для получения иконки для вещи
+            function getItemIcon(itemName) {
+                const name = itemName.toLowerCase();
+                if (name.includes('купальник') || name.includes('плавки')) return 'fa-swimming-pool';
+                if (name.includes('полотенце')) return 'fa-tshirt';
+                if (name.includes('крем') || name.includes('солнце')) return 'fa-sun';
+                if (name.includes('очки')) return 'fa-glasses';
+                if (name.includes('шляпа') || name.includes('панама')) return 'fa-hat-cowboy';
+                if (name.includes('документ')) return 'fa-passport';
+                if (name.includes('деньги') || name.includes('карта')) return 'fa-money-bill';
+                if (name.includes('аптечка')) return 'fa-first-aid';
+                if (name.includes('телефон')) return 'fa-mobile-alt';
+                if (name.includes('заряд')) return 'fa-charging-station';
+                if (name.includes('книга')) return 'fa-book';
+                if (name.includes('еда') || name.includes('вода')) return 'fa-utensils';
+                return 'fa-suitcase';
+            }
+            
+            // Функция добавления вещи
+            function addItem() {
+                const name = itemInput.value.trim();
+                
+                if (name === '') {
+                    showNotification('Пожалуйста, введите название вещи');
+                    return;
+                }
+                
+                // Проверяем, нет ли уже такой вещи
+                const existingItem = items.find(item => item.name.toLowerCase() === name.toLowerCase());
+                if (existingItem) {
+                    showNotification('Эта вещь уже есть в списке!');
+                    return;
+                }
+                
+                items.push({
+                    name: name,
+                    checked: false
+                });
+                
+                saveItems();
+                itemInput.value = '';
+                renderItemsList();
+                showNotification(`Вещь "${name}" добавлена!`);
+            }
+            
+            // Функция переключения состояния чекбокса
+            function toggleItemChecked(index) {
+                items[index].checked = !items[index].checked;
+                saveItems();
+                renderItemsList();
+                updateItemsStats();
+                
+                const itemName = items[index].name;
+                const action = items[index].checked ? 'отмечена как собранная' : 'отмечена как несобранная';
+                showNotification(`Вещь "${itemName}" ${action}`);
+            }
+            
+            // Функция редактирования вещи
+            function editItem(index) {
+                const itemNameElement = document.getElementById(`item-name-${index}`);
+                const currentName = items[index].name;
+                
+                // Создаем поле ввода для редактирования
+                itemNameElement.innerHTML = `
+                    <input type="text" class="edit-input" value="${currentName}" id="edit-input-${index}">
+                `;
+                
+                const editInput = document.getElementById(`edit-input-${index}`);
+                editInput.focus();
+                
+                // Обработчик для сохранения при потере фокуса или нажатии Enter
+                const saveEdit = function() {
+                    const newName = editInput.value.trim();
+                    
+                    if (newName === '') {
+                        showNotification('Название не может быть пустым');
+                        renderItemsList();
+                        return;
+                    }
+                    
+                    // Проверяем, нет ли уже такой вещи (кроме текущей)
+                    const existingItem = items.find((item, i) => 
+                        i !== index && item.name.toLowerCase() === newName.toLowerCase()
+                    );
+                    
+                    if (existingItem) {
+                        showNotification('Эта вещь уже есть в списке!');
+                        renderItemsList();
+                        return;
+                    }
+                    
+                    items[index].name = newName;
+                    saveItems();
+                    renderItemsList();
+                    showNotification(`Вещь переименована в "${newName}"`);
+                };
+                
+                editInput.addEventListener('blur', saveEdit);
+                editInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        saveEdit();
+                    }
+                });
+            }
+            
+            // Функция удаления вещи
+            function removeItem(index) {
+                const removedName = items[index].name;
+                items.splice(index, 1);
+                saveItems();
+                renderItemsList();
+                showNotification(`Вещь "${removedName}" удалена`);
+            }
+            
+            // Функция обновления статистики вещей
+            function updateItemsStats() {
+                const total = items.length;
+                const checked = items.filter(item => item.checked).length;
+                const left = total - checked;
+                
+                checkedCountElement.textContent = checked;
+                itemsTotalCountElement.textContent = total;
+                itemsLeftCountElement.textContent = left;
+                totalItemsCountElement.textContent = total;
+                
+                // Обновляем футер
+                document.getElementById('items-left-count').textContent = left;
+                document.getElementById('total-items-count').textContent = total;
+            }
+            
+            // Функция сохранения вещей
+            function saveItems() {
+                localStorage.setItem('seaTripItems', JSON.stringify(items));
+            }
+            
+            // ===== ФУНКЦИИ ДЛЯ СПИСКА УЧАСТНИКОВ =====
+            
+            // Функция для отображения списка участников
+            function renderParticipantsList() {
+                participantsList.innerHTML = '';
+                
+                if (participants.length === 0) {
+                    participantsList.innerHTML = '<li class="empty-list">Пока нет участников. Добавьте первого!</li>';
+                } else {
+                    participants.forEach(function(participant, index) {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'participant-item';
+                        listItem.innerHTML = `
+                            <div class="item-content">
+                                <div class="item-name">
+                                    <i class="fas fa-user"></i>
+                                    ${participant}
+                                </div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="delete-btn" data-index="${index}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `;
+                        participantsList.appendChild(listItem);
+                    });
+                }
+                
+                // Обновляем общее количество участников
+                participantsTotalCountElement.textContent = participants.length;
+                
+                // Добавляем обработчики для кнопок удаления
+                document.querySelectorAll('.participant-item .delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeParticipant(index);
+                    });
+                });
+            }
+            
+            // Функция добавления участника
+            function addParticipant() {
+                const name = participantInput.value.trim();
+                
+                if (name === '') {
+                    showNotification('Пожалуйста, введите имя участника');
+                    return;
+                }
+                
+                if (participants.includes(name)) {
+                    showNotification('Этот участник уже в списке!');
+                    return;
+                }
+                
+                participants.push(name);
+                saveParticipants();
+                
+                participantInput.value = '';
+                renderParticipantsList();
+                showNotification(`Участник "${name}" добавлен!`);
+            }
+            
+            // Функция удаления участника
+            function removeParticipant(index) {
+                const removedName = participants[index];
+                participants.splice(index, 1);
+                saveParticipants();
+                renderParticipantsList();
+                showNotification(`Участник "${removedName}" удалён`);
+            }
+            
+            // Функция сохранения участников
+            function saveParticipants() {
+                localStorage.setItem('seaTripParticipants', JSON.stringify(participants));
+            }
+            
+            // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
+            
+            // Для списка вещей
+            addItemButton.addEventListener('click', addItem);
+            itemInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addItem();
+                }
+            });
+            
+            // Для списка участников
+            addParticipantButton.addEventListener('click', addParticipant);
+            participantInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addParticipant();
+                }
+            });
+            
+            // Автосохранение при закрытии страницы
+            window.addEventListener('beforeunload', function() {
+                saveItems();
+                saveParticipants();
+            });
+            
+            // Добавляем несколько вещей по умолчанию, если список пуст
+            if (items.length === 0) {
+                const defaultItems = [
+                    "Купальник/плавки",
+                    "Пляжное полотенце",
+                    "Солнцезащитный крем",
+                    "Солнечные очки",
+                    "Панама/шляпа",
+                    "Документы",
+                    "Деньги/карта",
+                    "Аптечка",
+                    "Телефон",
+                    "Зарядное устройство"
+                ];
+                
+                defaultItems.forEach(itemName => {
+                    items.push({
+                        name: itemName,
+                        checked: false
+                    });
+                });
+                
+                saveItems();
+                renderItemsList();
+            }
+        });
+    </script>
+</body>
+</html>
